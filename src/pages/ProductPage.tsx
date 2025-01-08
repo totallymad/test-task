@@ -12,7 +12,7 @@ const ProductPage = () => {
   const { products } = useSelector((state: RootState) => state.products);
   const navigate = useNavigate();
 
-  const product = products.find((p: Product) => p.id === parseInt(productId));
+  const product = productId ? products.find((p: Product) => p.id === parseInt(productId)) : null; //FIXME
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Product | null>(
