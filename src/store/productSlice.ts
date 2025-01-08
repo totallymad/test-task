@@ -15,7 +15,7 @@ interface ProductsState {
 const initialState: ProductsState = {
   products: [],
   addedProducts: [],
-  updatedProducts: [], // Инициализация массива измененных продуктов
+  updatedProducts: [],
   favorites: [],
   filter: "all",
   status: "idle",
@@ -77,7 +77,6 @@ const productsSlice = createSlice({
         state.products[indexInProducts] = updatedProduct;
       }
 
-      // Добавляем продукт в массив `updatedProducts`
       const indexInUpdated = state.updatedProducts.findIndex(
         (product) => product.id === updatedProduct.id
       );
@@ -103,12 +102,14 @@ const productsSlice = createSlice({
         );
 
         // Применяем локальные изменения, если они существуют
-        const mergedProducts = fetchedProducts.map((product: { id: number; }) => {
-          const updatedProduct = state.updatedProducts.find(
-            (updated) => updated.id === product.id
-          );
-          return updatedProduct || product;
-        });
+        const mergedProducts = fetchedProducts.map(
+          (product: { id: number }) => {
+            const updatedProduct = state.updatedProducts.find(
+              (updated) => updated.id === product.id
+            );
+            return updatedProduct || product;
+          }
+        );
 
         state.products = [...mergedProducts, ...state.addedProducts];
       })

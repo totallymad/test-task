@@ -106,25 +106,39 @@ const ProductsPage: React.FC = () => {
         <div className="sort-buttons">
           <button
             onClick={() => setSortMethod("none")}
-            className={sortMethod === "none" ? "active" : ""}
+            className={
+              sortMethod === "none" ? "sort-button sort-active" : "sort-button"
+            }
           >
             Без сортировки
           </button>
           <button
             onClick={() => setSortMethod("alphabetical")}
-            className={sortMethod === "alphabetical" ? "active" : ""}
+            className={
+              sortMethod === "alphabetical"
+                ? "sort-button sort-active"
+                : "sort-button"
+            }
           >
             По алфавиту
           </button>
           <button
             onClick={() => setSortMethod("priceAsc")}
-            className={sortMethod === "priceAsc" ? "active" : ""}
+            className={
+              sortMethod === "priceAsc"
+                ? "sort-button sort-active"
+                : "sort-button"
+            }
           >
             Цена: по возрастанию
           </button>
           <button
             onClick={() => setSortMethod("priceDesc")}
-            className={sortMethod === "priceDesc" ? "active" : ""}
+            className={
+              sortMethod === "priceDesc"
+                ? "sort-button sort-active"
+                : "sort-button"
+            }
           >
             Цена: по убыванию
           </button>

@@ -14,7 +14,7 @@ const ProductPage = () => {
 
   const product = productId
     ? products.find((p: Product) => p.id === parseInt(productId))
-    : null; //FIXME
+    : null; 
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Product | null>(
@@ -36,7 +36,8 @@ const ProductPage = () => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
     if (editedProduct) {
       dispatch(editProductLocally(editedProduct));
       setIsEditing(false);
@@ -72,7 +73,14 @@ const ProductPage = () => {
             required
           />
           <button>Сохранить</button>
-          <button onClick={() => setIsEditing(false)}>Отмена</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setIsEditing(false);
+            }}
+          >
+            Отмена
+          </button>
         </form>
       ) : (
         <>

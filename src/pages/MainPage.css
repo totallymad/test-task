@@ -15,10 +15,11 @@
 
 .main-page-content p {
   margin-bottom: 20px;
+  line-height: 30px;
 }
 
-.main-page-content ul {
-  list-style-type: none;
+.main-page-content ol {
+  padding-left: 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;

@@ -1,4 +1,3 @@
-// src/pages/CreateProductPage.tsx
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,38 +14,31 @@ const CreateProductPage: React.FC = () => {
   const [image, setImage] = useState<string[]>([]); // Делаем image массивом строк
   const [error, setError] = useState("");
 
-  // Обработчик отправки формы
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Простая валидация
     if (!name || !description || !price || !image) {
       setError("Все поля обязательны!");
       return;
     }
 
-    // Создаем новый продукт
     const newProduct = {
-      id: Date.now(), // Генерируем уникальный id для нового продукта
+      id: Date.now(),
       title: name,
       name,
       description,
       price: Number(price),
-      images: image, // Сохраняем массив изображений
+      images: image,
     };
 
-    // Добавляем продукт в store
-    dispatch(addProductLocally(newProduct)); // Добавляем новый продукт в Redux
+    dispatch(addProductLocally(newProduct));
 
-    // После успешной отправки перенаправляем на главную страницу
     navigate("/");
   };
 
-  // Обработчик для добавления нового изображения в массив
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageUrl = e.target.value;
     if (imageUrl && !image.includes(imageUrl)) {
-      // Добавляем изображение в массив только если его там нет
       setImage([...image, imageUrl]);
     }
   };
@@ -90,7 +82,7 @@ const CreateProductPage: React.FC = () => {
           <input
             type="text"
             placeholder="Введите URL изображения"
-            onChange={handleAddImage} // Добавляем новое изображение в массив
+            onChange={handleAddImage}
             required
           />
         </div>
