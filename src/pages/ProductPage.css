@@ -31,3 +31,25 @@
 .product-page button:active {
   transform: scale(0.95);
 }
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.edit-form textarea {
+  resize: none;
+  height: 200px;
+}

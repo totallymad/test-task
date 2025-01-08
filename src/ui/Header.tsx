@@ -14,6 +14,11 @@ const Header: React.FC = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink className="nav-item" to="/products">
+              Продукты
+            </NavLink>
+          </li>
+          <li>
             <NavLink className="nav-item" to="/create-product">
               Создать продукт
             </NavLink>

@@ -12,7 +12,7 @@ const ProductsPage: React.FC = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMethod, setSortMethod] = useState("none");
 
@@ -102,38 +102,46 @@ const ProductsPage: React.FC = () => {
         </button>
       </div>
 
-      <div className="sort-buttons">
-        <button
-          onClick={() => setSortMethod("none")}
-          className={sortMethod === "none" ? "active" : ""}
-        >
-          Без сортировки
-        </button>
-        <button
-          onClick={() => setSortMethod("alphabetical")}
-          className={sortMethod === "alphabetical" ? "active" : ""}
-        >
-          По алфавиту
-        </button>
-        <button
-          onClick={() => setSortMethod("priceAsc")}
-          className={sortMethod === "priceAsc" ? "active" : ""}
-        >
-          Цена: по возрастанию
-        </button>
-        <button
-          onClick={() => setSortMethod("priceDesc")}
-          className={sortMethod === "priceDesc" ? "active" : ""}
-        >
-          Цена: по убыванию
-        </button>
-      </div>
+      {totalPages ? (
+        <div className="sort-buttons">
+          <button
+            onClick={() => setSortMethod("none")}
+            className={sortMethod === "none" ? "active" : ""}
+          >
+            Без сортировки
+          </button>
+          <button
+            onClick={() => setSortMethod("alphabetical")}
+            className={sortMethod === "alphabetical" ? "active" : ""}
+          >
+            По алфавиту
+          </button>
+          <button
+            onClick={() => setSortMethod("priceAsc")}
+            className={sortMethod === "priceAsc" ? "active" : ""}
+          >
+            Цена: по возрастанию
+          </button>
+          <button
+            onClick={() => setSortMethod("priceDesc")}
+            className={sortMethod === "priceDesc" ? "active" : ""}
+          >
+            Цена: по убыванию
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
 
-      <div className="products-list">
-        {currentProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {totalPages ? (
+        <div className="products-list">
+          {currentProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="page-empty">Пока что тут пусто 😞</div>
+      )}
 
       {totalPages ? (
         <div className="pagination">

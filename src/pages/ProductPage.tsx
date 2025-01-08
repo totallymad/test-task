@@ -12,7 +12,9 @@ const ProductPage = () => {
   const { products } = useSelector((state: RootState) => state.products);
   const navigate = useNavigate();
 
-  const product = productId ? products.find((p: Product) => p.id === parseInt(productId)) : null; //FIXME
+  const product = productId
+    ? products.find((p: Product) => p.id === parseInt(productId))
+    : null; //FIXME
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Product | null>(
@@ -44,7 +46,7 @@ const ProductPage = () => {
   return (
     <div className="product-page">
       {isEditing ? (
-        <div className="edit-form">
+        <form onSubmit={handleSave} className="edit-form">
           <h1>Редактировать продукт</h1>
           <input
             type="text"
@@ -52,12 +54,14 @@ const ProductPage = () => {
             value={editedProduct?.title || ""}
             onChange={handleInputChange}
             placeholder="Название"
+            required
           />
           <textarea
             name="description"
             value={editedProduct?.description || ""}
             onChange={handleInputChange}
             placeholder="Описание"
+            required
           />
           <input
             type="number"
@@ -65,10 +69,11 @@ const ProductPage = () => {
             value={editedProduct?.price || 0}
             onChange={handleInputChange}
             placeholder="Цена"
+            required
           />
-          <button onClick={handleSave}>Сохранить</button>
+          <button>Сохранить</button>
           <button onClick={() => setIsEditing(false)}>Отмена</button>
-        </div>
+        </form>
       ) : (
         <>
           <h1>{product.title}</h1>
