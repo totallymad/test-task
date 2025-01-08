@@ -1,0 +1,60 @@
+.create-product {
+  padding: 20px;
+  color: #333;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.create-product form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.create-product button {
+  padding: 8px;
+  width: 200px;
+  border-radius: 10px;
+  border: 1px solid #a3a3a3;
+  background: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.create-product button:active {
+  transform: scale(0.95);
+}
+
+.form-group {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 auto;
+}
+
+.form-group label {
+  font-size: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #a3a3a3;
+  padding: 5px 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+}
+.form-group textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+  border-radius: 5px;
+  border: 1px solid #a3a3a3;
+  padding: 5px 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+}

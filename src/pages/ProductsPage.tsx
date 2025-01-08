@@ -13,14 +13,13 @@ const ProductsPage: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const [searchQuery, setSearchQuery] = useState(""); // Состояние для поискового запроса
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc"); // Состояние для порядка сортировки
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortMethod, setSortMethod] = useState("none");
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // Фильтруем продукты по поисковому запросу
   const filteredProducts = products.filter((product) => {
     const lowercasedQuery = searchQuery.toLowerCase();
     return (
@@ -29,22 +28,22 @@ const ProductsPage: React.FC = () => {
     );
   });
 
-  // Дополнительный фильтр по избранным
   const displayedProducts =
     filter === "favorites"
       ? filteredProducts.filter((product) => favorites.includes(product.id))
       : filteredProducts;
 
-  // Сортировка по цене
-  const sortedProducts = displayedProducts.sort((a, b) => {
-    if (sortOrder === "asc") {
-      return a.price - b.price; // от меньшего к большему
-    } else {
-      return b.price - a.price; // от большего к меньшему
+  const sortedProducts = [...displayedProducts].sort((a, b) => {
+    if (sortMethod === "alphabetical") {
+      return a.title.localeCompare(b.title);
+    } else if (sortMethod === "priceAsc") {
+      return a.price - b.price;
+    } else if (sortMethod === "priceDesc") {
+      return b.price - a.price;
     }
+    return 0;
   });
 
-  // Рассчитываем индексы для текущей страницы
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = sortedProducts.slice(
@@ -64,10 +63,6 @@ const ProductsPage: React.FC = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleSortOrderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOrder(e.target.value as "asc" | "desc");
-  };
-
   if (status === "loading") {
     return <div className="products-page">Загрузка...</div>;
   }
@@ -80,7 +75,6 @@ const ProductsPage: React.FC = () => {
     <div className="products-page">
       <h1>Продукты</h1>
 
-      {/* Поле поиска */}
       <div className="search-container">
         <input
           type="text"
@@ -88,15 +82,6 @@ const ProductsPage: React.FC = () => {
           onChange={handleSearchChange}
           placeholder="Поиск по названию или описанию"
         />
-      </div>
-
-      {/* Сортировка по цене */}
-      <div className="sort-container">
-        <label>Сортировка по цене:</label>
-        <select onChange={handleSortOrderChange} value={sortOrder}>
-          <option value="asc">От меньшего к большему</option>
-          <option value="desc">От большего к меньшему</option>
-        </select>
       </div>
 
       <div className="filter-buttons">
@@ -117,29 +102,60 @@ const ProductsPage: React.FC = () => {
         </button>
       </div>
 
+      <div className="sort-buttons">
+        <button
+          onClick={() => setSortMethod("none")}
+          className={sortMethod === "none" ? "active" : ""}
+        >
+          Без сортировки
+        </button>
+        <button
+          onClick={() => setSortMethod("alphabetical")}
+          className={sortMethod === "alphabetical" ? "active" : ""}
+        >
+          По алфавиту
+        </button>
+        <button
+          onClick={() => setSortMethod("priceAsc")}
+          className={sortMethod === "priceAsc" ? "active" : ""}
+        >
+          Цена: по возрастанию
+        </button>
+        <button
+          onClick={() => setSortMethod("priceDesc")}
+          className={sortMethod === "priceDesc" ? "active" : ""}
+        >
+          Цена: по убыванию
+        </button>
+      </div>
+
       <div className="products-list">
         {currentProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Назад
-        </button>
-        <span>
-          {totalPages ? `Страница ${currentPage} из ${totalPages}` : null}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={!totalPages}
-        >
-          Вперед
-        </button>
-      </div>
+      {totalPages ? (
+        <div className="pagination">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Назад
+          </button>
+          <span>
+            {totalPages ? `Страница ${currentPage} из ${totalPages}` : null}
+          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={!totalPages || currentPage === totalPages}
+          >
+            Вперед
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

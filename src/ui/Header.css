@@ -2,6 +2,10 @@
   display: flex;
   list-style-type: none;
   gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 20px;
 }
 
 .nav-item {

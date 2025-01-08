@@ -27,6 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
         <div className="product-details">
           <h3 className="product-title">{product.title}</h3>
+          <p className="product-price">Price: ${product.price}</p>
           <p className="product-description">
             {product.description.slice(0, 100)}...
           </p>

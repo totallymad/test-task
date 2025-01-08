@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProductLocally } from "../store/productSlice";
+import "./CreateProductPage.css";
 
 const CreateProductPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,11 +52,11 @@ const CreateProductPage: React.FC = () => {
   };
 
   return (
-    <div className="create-product-page">
+    <div className="create-product">
       <h1>Создание нового продукта</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>Название</label>
           <input
             type="text"
@@ -65,7 +66,7 @@ const CreateProductPage: React.FC = () => {
             minLength={3}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Описание</label>
           <textarea
             value={description}
@@ -74,7 +75,7 @@ const CreateProductPage: React.FC = () => {
             minLength={10}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Цена</label>
           <input
             type="number"
@@ -84,7 +85,7 @@ const CreateProductPage: React.FC = () => {
             min={1}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Изображение</label>
           <input
             type="text"
